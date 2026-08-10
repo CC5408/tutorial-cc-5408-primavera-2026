@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dwga3beukv76t"]
+
+[ext_resource type="Script" uid="uid://sgkl2xsuogxq" path="res://test.gd" id="1_ykrsh"]
+[ext_resource type="PackedScene" uid="uid://dqvt30b6ce7qt" path="res://ball.tscn" id="2_8uh7m"]
+[ext_resource type="PackedScene" uid="uid://duaw5kgjhhf7f" path="res://door_button.tscn" id="3_6uqi0"]
+[ext_resource type="PackedScene" uid="uid://dic214tqqwy78" path="res://door.tscn" id="4_ppyta"]
+[ext_resource type="PackedScene" uid="uid://dboy51yparsgi" path="res://player/player.tscn" id="5_ykrsh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8uh7m"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_6uqi0"]
+sky_material = SubResource("ProceduralSkyMaterial_8uh7m")
+
+[sub_resource type="Environment" id="Environment_ppyta"]
+background_mode = 2
+sky = SubResource("Sky_6uqi0")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ba8gm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g4v7s"]
+size = Vector2(10, 10)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_g4v7s"]
+
+[node name="Test" type="Node3D" unique_id=1974693456]
+script = ExtResource("1_ykrsh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1547905638]
+environment = SubResource("Environment_ppyta")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1119017833]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1971819604]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1872263640]
+material_override = SubResource("StandardMaterial3D_ba8gm")
+mesh = SubResource("PlaneMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=60985805]
+shape = SubResource("WorldBoundaryShape3D_g4v7s")
+
+[node name="Ball" parent="." unique_id=417202211 instance=ExtResource("2_8uh7m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22045028, 2.7773714, 0.06698215)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1842892328]
+transform = Transform3D(1, 0, 0, 0, 0.6333654, 0.7738529, 0, -0.7738529, 0.6333654, 2.3841858e-07, 4.0791626, 4.6728845)
+
+[node name="DoorButton" parent="." unique_id=1575781769 instance=ExtResource("3_6uqi0")]
+
+[node name="Door" parent="." unique_id=360679137 instance=ExtResource("4_ppyta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5837517, 2, 3.7270408)
+
+[node name="Node3D" type="Node3D" parent="." unique_id=44069373]
+
+[node name="Player" parent="." unique_id=1743865470 instance=ExtResource("5_ykrsh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6698046, 1.9123926, 5.950493)

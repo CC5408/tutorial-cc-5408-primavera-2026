@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dboy51yparsgi"]
+
+[ext_resource type="Script" uid="uid://cmn204mhbvh22" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://ctu580da8pqej" path="res://assets/cat.blend" id="2_rkbax"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1743865470]
+script = ExtResource("1_oul6g")
+camera_pitch_min = -10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031798827]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.139066e-10, 0.018620014)
+shape = SubResource("SphereShape3D_g4v7s")
+
+[node name="Model" type="Node3D" parent="." unique_id=835199131]
+
+[node name="cat" parent="Model" unique_id=1520861417 instance=ExtResource("2_rkbax")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Model/cat/Armature" parent_id_path=PackedInt32Array(1520861417, 213645013) index="0" unique_id=1941040474]
+bones/9/rotation = Quaternion(-0.051327277, -0.009724691, 0.23101683, 0.9715463)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1187830177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2301409, -0.7982006)
+spring_length = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1896818561]
+current = true
+
+[editable path="Model/cat"]

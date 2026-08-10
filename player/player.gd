@@ -1,0 +1,55 @@
+extends CharacterBody3D
+
+@export var move_speed: float = 5
+@export var jump_speed: float = 7
+@export var acceleration: float = 20
+
+@export_range(0.01, 0.1) var mouse_sensitivity: float = 0.01
+@export var camera_pitch_min: float = -40
+@export var camera_pitch_max: float = 20
+
+@onready var camera_3d: Camera3D = $SpringArm3D/Camera3D
+@onready var spring_arm_3d: SpringArm3D = $SpringArm3D
+@onready var model: Node3D = $Model
+@onready var animation_player: AnimationPlayer = $Model/cat/AnimationPlayer
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("flick"):
+		animation_player.play("flick")
+
+func _unhandled_input(event: InputEvent) -> void:
+	var mouse_motion: InputEventMouseMotion = event as InputEventMouseMotion
+	if mouse_motion:
+		spring_arm_3d.rotation.y -= mouse_motion.relative.x * mouse_sensitivity
+		var camera_pitch: float = camera_3d.rotation.x - mouse_motion.relative.y * mouse_sensitivity
+		camera_3d.rotation.x = clamp(
+			camera_pitch,
+			deg_to_rad(camera_pitch_min),
+			deg_to_rad(camera_pitch_max))
+
+func _physics_process(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
+		velocity.y = jump_speed
+	
+	var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	#var direction: Vector3 = transform.basis * Vector3(move_input.x, 0, move_input.y)
+	#var target: Vector2 = Vector2(direction.x, direction.z) * move_speed
+
+	var direction: Vector2 = move_input.rotated(-model.rotation.y)
+	var target: Vector2 = direction * move_speed
+	var current: Vector2 = Vector2(velocity.x, velocity.z)
+	var result: Vector2 = current.move_toward(target, acceleration * delta)
+	
+	
+	velocity.x = result.x
+	velocity.z = result.y
+	
+	move_and_slide()
+	
+	model.rotation.y = lerp_angle(model.rotation.y, spring_arm_3d.rotation.y, 0.1)
