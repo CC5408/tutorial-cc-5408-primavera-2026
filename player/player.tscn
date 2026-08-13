@@ -1,25 +1,47 @@
 [gd_scene format=3 uid="uid://dboy51yparsgi"]
 
 [ext_resource type="Script" uid="uid://cmn204mhbvh22" path="res://player/player.gd" id="1_oul6g"]
-[ext_resource type="PackedScene" uid="uid://ctu580da8pqej" path="res://assets/cat.blend" id="2_rkbax"]
+[ext_resource type="PackedScene" uid="uid://coetuunqittxg" path="res://assets/cat.glb" id="2_g1dw6"]
+[ext_resource type="AnimationLibrary" uid="uid://clwcd22kffuvq" path="res://assets/cat_animations.glb" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://b66cs470qfon0" path="res://components/hitbox_component.gd" id="4_g6k8r"]
+[ext_resource type="Script" uid="uid://dug778ifn1s4c" path="res://components/hurtbox_component.gd" id="4_yw30f"]
+[ext_resource type="Script" uid="uid://peokparacol4" path="res://components/health_component.gd" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://bp4nb5csxeh4i" path="res://ui/pause_menu.tscn" id="7_boad6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 0.67109174
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(0.546875, 0.4189453, 0.29101563)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
+radius = 0.75
 
 [node name="Player" type="CharacterBody3D" unique_id=1743865470]
 script = ExtResource("1_oul6g")
 camera_pitch_min = -10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031798827]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.139066e-10, 0.018620014)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.29197133, 0.018620014)
 shape = SubResource("SphereShape3D_g4v7s")
 
 [node name="Model" type="Node3D" parent="." unique_id=835199131]
 
-[node name="cat" parent="Model" unique_id=1520861417 instance=ExtResource("2_rkbax")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+[node name="cat" parent="Model" unique_id=233149439 instance=ExtResource("2_g1dw6")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Skeleton3D" parent="Model/cat/Armature" parent_id_path=PackedInt32Array(1520861417, 213645013) index="0" unique_id=1941040474]
-bones/9/rotation = Quaternion(-0.051327277, -0.009724691, 0.23101683, 0.9715463)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Model/cat" unique_id=857112140]
+libraries/cat_animations = ExtResource("3_yw30f")
+
+[node name="HitboxComponent" type="Area3D" parent="Model" unique_id=216659417]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_g6k8r")
+metadata/_custom_type_script = "uid://b66cs470qfon0"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/HitboxComponent" unique_id=1515866258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3346737, -0.7276016)
+shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1187830177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2301409, -0.7982006)
@@ -28,4 +50,36 @@ spring_length = 2.0
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1896818561]
 current = true
 
-[editable path="Model/cat"]
+[node name="HutboxComponent" type="Area3D" parent="." unique_id=1541284775 node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_yw30f")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dug778ifn1s4c"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HutboxComponent" unique_id=528849694]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.29197133, 0.018620014)
+shape = SubResource("SphereShape3D_qjkh3")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=564609478]
+script = ExtResource("5_qjkh3")
+metadata/_custom_type_script = "uid://peokparacol4"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=805592172]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=930210459]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/MarginContainer" unique_id=778000136]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_type_variation = &"HealthBar"
+value = 17.02
+show_percentage = false
+
+[node name="PauseMenu" parent="." unique_id=1414641501 instance=ExtResource("7_boad6")]

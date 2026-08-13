@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://blibmahidxpob"]
+
+[ext_resource type="Texture2D" uid="uid://bkxxcx0csiuoa" path="res://icon.svg" id="1_fw1ev"]
+[ext_resource type="Script" uid="uid://b66cs470qfon0" path="res://components/hitbox_component.gd" id="2_7frlh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7frlh"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("1_fw1ev")
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_orwns"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[node name="Enemy" type="CharacterBody3D" unique_id=456266402]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1150890785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_7frlh")
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=173934639]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_orwns")
+
+[node name="HitboxComponent" type="Area3D" parent="." unique_id=864087858]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_7frlh")
+damage = 40.0
+metadata/_custom_type_script = "uid://b66cs470qfon0"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=2067697534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_g4v7s")

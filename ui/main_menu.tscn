@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://c6sopy7qwsvyt"]
+
+[ext_resource type="Script" uid="uid://ymtqusg3n3gl" path="res://ui/main_menu.gd" id="1_t7e0r"]
+
+[node name="MainMenu" type="Control" unique_id=1403492081]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t7e0r")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=927074857]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -41.5
+offset_right = 30.5
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=370392456]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=2044504336]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=346077940]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "Tutorial"
+
+[node name="Start" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1148010110]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start"
+
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=508524126]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2077500499]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1874953868]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"

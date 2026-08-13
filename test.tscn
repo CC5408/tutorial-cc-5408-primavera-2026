@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://duaw5kgjhhf7f" path="res://door_button.tscn" id="3_6uqi0"]
 [ext_resource type="PackedScene" uid="uid://dic214tqqwy78" path="res://door.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://dboy51yparsgi" path="res://player/player.tscn" id="5_ykrsh"]
+[ext_resource type="PackedScene" uid="uid://blibmahidxpob" path="res://enemies/enemy.tscn" id="6_g14j6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8uh7m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -59,3 +60,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5837517, 2, 3.7270408)
 
 [node name="Player" parent="." unique_id=1743865470 instance=ExtResource("5_ykrsh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6698046, 1.9123926, 5.950493)
+
+[node name="Enemy" parent="." unique_id=456266402 instance=ExtResource("6_g14j6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7952096, 0.49999976, 0.39298773)

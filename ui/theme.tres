@@ -1,0 +1,24 @@
+[gd_resource type="Theme" format=3 uid="uid://duvclq0wn2k68"]
+
+[ext_resource type="FontFile" uid="uid://c2puq13tlgeml" path="res://assets/fonts/Kaph_Font_1_20/OpenType (.otf)/Kaph-Regular.otf" id="1_jf26r"]
+[ext_resource type="FontFile" uid="uid://x5olk6hne5cf" path="res://assets/fonts/Peaberry-Font-v2.0/Peaberry-Font-v2.0/Peaberry Font Family/Peaberry Base/Peaberry-Base.otf" id="2_6lx7k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quf7v"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tllrq"]
+bg_color = Color(0.08810022, 0.66883516, 0.18271944, 1)
+
+[resource]
+default_font = ExtResource("2_6lx7k")
+default_font_size = 32
+HealthBar/base_type = &"ProgressBar"
+HealthBar/styles/background = SubResource("StyleBoxFlat_quf7v")
+HealthBar/styles/fill = SubResource("StyleBoxFlat_tllrq")
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
+Title/base_type = &"Label"
+Title/font_sizes/font_size = 64
+Title/fonts/font = ExtResource("1_jf26r")

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bp4nb5csxeh4i"]
+
+[ext_resource type="Script" uid="uid://dx4e82mn3dah0" path="res://ui/pause_menu.gd" id="1_50142"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1414641501]
+process_mode = 3
+script = ExtResource("1_50142")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1811813654]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -41.5
+offset_right = 30.5
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1863691420]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=607027594]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=889041820]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "PAuse"
+
+[node name="Resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1143682711]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Retry" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2040079821]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retry
+"
+
+[node name="MainMenu" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1419811712]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Main Menu"

@@ -12,13 +12,21 @@ extends CharacterBody3D
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
 @onready var model: Node3D = $Model
 @onready var animation_player: AnimationPlayer = $Model/cat/AnimationPlayer
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	health_bar.value = health_component.health
+	health_bar.max_value = health_component.max_health
+	health_component.health_changed.connect(func(value: float) -> void: health_bar.value = value)
+	health_component.died.connect(_on_died)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("flick"):
-		animation_player.play("flick")
+		animation_player.play("cat_animations/flick")
 
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_motion: InputEventMouseMotion = event as InputEventMouseMotion
@@ -53,3 +61,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	model.rotation.y = lerp_angle(model.rotation.y, spring_arm_3d.rotation.y, 0.1)
+
+func _on_died() -> void:
+	queue_free()
