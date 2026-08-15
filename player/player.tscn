@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dug778ifn1s4c" path="res://components/hurtbox_component.gd" id="4_yw30f"]
 [ext_resource type="Script" uid="uid://peokparacol4" path="res://components/health_component.gd" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://bp4nb5csxeh4i" path="res://ui/pause_menu.tscn" id="7_boad6"]
+[ext_resource type="AudioStream" uid="uid://dt5iw5ue3fqwa" path="res://assets/audio/jump.wav" id="8_rgyib"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
 radius = 0.67109174
@@ -18,6 +19,8 @@ size = Vector3(0.546875, 0.4189453, 0.29101563)
 radius = 0.75
 
 [node name="Player" type="CharacterBody3D" unique_id=1743865470]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_oul6g")
 camera_pitch_min = -10.0
 
@@ -83,3 +86,6 @@ value = 17.02
 show_percentage = false
 
 [node name="PauseMenu" parent="." unique_id=1414641501 instance=ExtResource("7_boad6")]
+
+[node name="JumpPlayer" type="AudioStreamPlayer3D" parent="." unique_id=625906409]
+stream = ExtResource("8_rgyib")

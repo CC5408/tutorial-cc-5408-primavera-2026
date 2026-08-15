@@ -5,10 +5,20 @@ extends Control
 @onready var quit: Button = %Quit
 
 
+const CLICK = preload("uid://6dxaqlup8h3c")
+
+
+
 func _ready() -> void:
 	start.pressed.connect(_on_start_pressed)
+	credits.pressed.connect(_on_credits_pressed)
 	quit.pressed.connect(func() -> void: get_tree().quit())
 
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://test.tscn")
+	LevelManager.start_game()
+	AudioManager.play_sfx(CLICK)
+
+func _on_credits_pressed() -> void:
+	AudioManager.play_sfx(CLICK)
+	AudioManager.next_song()

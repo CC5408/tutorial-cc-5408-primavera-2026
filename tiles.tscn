@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://brk8h47a65njl"]
+
+[ext_resource type="PackedScene" uid="uid://23lrnyu6yfck" path="res://assets/tiles.glb" id="1_7h0kd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6t24"]
+size = Vector3(2, 2, 2)
+
+[node name="tiles" unique_id=1514135669 instance=ExtResource("1_7h0kd")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" parent_id_path=PackedInt32Array(1079393126) index="0" unique_id=701447772]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0" unique_id=1485512807]
+shape = SubResource("BoxShape3D_k6t24")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_001" parent_id_path=PackedInt32Array(291765152) index="0" unique_id=274283688]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_001/StaticBody3D" index="0" unique_id=1265198558]
+shape = SubResource("BoxShape3D_k6t24")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_002" parent_id_path=PackedInt32Array(2064831082) index="0" unique_id=1940384730]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_002/StaticBody3D" index="0" unique_id=1552950497]
+shape = SubResource("BoxShape3D_k6t24")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_003" parent_id_path=PackedInt32Array(1809963075) index="0" unique_id=1684612359]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_003/StaticBody3D" index="0" unique_id=330695939]
+shape = SubResource("BoxShape3D_k6t24")

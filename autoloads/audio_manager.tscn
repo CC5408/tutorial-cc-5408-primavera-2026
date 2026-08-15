@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bblmx1ysulve8"]
+
+[ext_resource type="Script" uid="uid://buou8hilpvtf5" path="res://autoloads/audio_manager.gd" id="1_tr7pb"]
+[ext_resource type="AudioStream" uid="uid://cpx320i0sdj4j" path="res://assets/audio/Little_Paws.mp3" id="2_alnp1"]
+[ext_resource type="AudioStream" uid="uid://dt5iw5ue3fqwa" path="res://assets/audio/jump.wav" id="3_xdfsh"]
+
+[node name="AudioManager" type="Node" unique_id=2004080834]
+script = ExtResource("1_tr7pb")
+music_library = Array[AudioStream]([ExtResource("2_alnp1"), ExtResource("3_xdfsh")])
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2041880336]
+stream = ExtResource("2_alnp1")
+bus = &"Music"

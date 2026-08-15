@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dl4gfdqwe7ung"]
+
+[ext_resource type="Script" uid="uid://ctgnu5k7xhcsr" path="res://gameplay/spawner.gd" id="1_0grye"]
+[ext_resource type="PackedScene" uid="uid://blibmahidxpob" path="res://enemies/enemy.tscn" id="2_p0t1d"]
+
+[node name="Spawner" type="Marker3D" unique_id=287885790]
+gizmo_extents = 4.35
+script = ExtResource("1_0grye")
+scene = ExtResource("2_p0t1d")
+
+[node name="Timer" type="Timer" parent="." unique_id=347390661]
+one_shot = true

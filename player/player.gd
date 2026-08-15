@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 
 @export var move_speed: float = 5
@@ -14,7 +15,7 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $Model/cat/AnimationPlayer
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar = $CanvasLayer/MarginContainer/HealthBar
-
+@onready var jump_player: AudioStreamPlayer3D = $JumpPlayer
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -44,6 +45,8 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_speed
+		jump_player.play()
+		Debug.log("jump")
 	
 	var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	#var direction: Vector3 = transform.basis * Vector3(move_input.x, 0, move_input.y)

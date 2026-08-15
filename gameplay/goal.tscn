@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b553p5occ6vcb"]
+
+[ext_resource type="Script" uid="uid://de06pfmwoi77e" path="res://gameplay/goal.gd" id="1_8tq3u"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+top_radius = 1.6401367
+bottom_radius = 1.6401367
+height = 0.15136719
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8tq3u"]
+height = 1.6987305
+radius = 1.6401367
+
+[node name="Goal" type="Area3D" unique_id=982481501]
+script = ExtResource("1_8tq3u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1253110822]
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1818570107]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77368164, 0)
+shape = SubResource("CylinderShape3D_8tq3u")
