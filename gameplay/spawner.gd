@@ -28,7 +28,7 @@ func _spawn() -> void:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	
 	var sphere_rid: RID = PhysicsServer3D.sphere_shape_create()
-	PhysicsServer3D.shape_set_data(sphere_rid, 2)
+	PhysicsServer3D.shape_set_data(sphere_rid, 2.0)
 	
 	var params: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 	params.shape_rid = sphere_rid
