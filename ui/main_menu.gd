@@ -20,5 +20,5 @@ func _on_start_pressed() -> void:
 	AudioManager.play_sfx(CLICK)
 
 func _on_credits_pressed() -> void:
+	LevelManager.go_to_credits()
 	AudioManager.play_sfx(CLICK)
-	AudioManager.next_song()

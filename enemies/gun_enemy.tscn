@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cmajkgok212pa"]
+
+[ext_resource type="Script" uid="uid://buc6q6rbtjbj5" path="res://enemies/gun_enemy.gd" id="1_7u23c"]
+[ext_resource type="Texture2D" uid="uid://bkxxcx0csiuoa" path="res://icon.svg" id="1_tmmut"]
+[ext_resource type="Script" uid="uid://dug778ifn1s4c" path="res://components/hurtbox_component.gd" id="2_tmmut"]
+[ext_resource type="Script" uid="uid://peokparacol4" path="res://components/health_component.gd" id="4_cwqlc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7frlh"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("1_tmmut")
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_orwns"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3mi2o"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[node name="Enemy" type="CharacterBody3D" unique_id=456266402]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_7u23c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1150890785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_7frlh")
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=173934639]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_orwns")
+
+[node name="HurtboxComponent" type="Area3D" parent="." unique_id=1308398823 node_paths=PackedStringArray("health_component")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_tmmut")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dug778ifn1s4c"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=734504016]
+shape = SubResource("BoxShape3D_3mi2o")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1193627320]
+script = ExtResource("4_cwqlc")
+metadata/_custom_type_script = "uid://peokparacol4"

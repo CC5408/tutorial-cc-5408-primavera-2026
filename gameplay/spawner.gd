@@ -2,6 +2,7 @@ extends Node3D
 
 @export var scene: PackedScene
 # spawns per second
+@export var scene_radius: float = 2.0
 @export var rate: float = 1
 @export var radius: float = 5
 
@@ -28,7 +29,7 @@ func _spawn() -> void:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	
 	var sphere_rid: RID = PhysicsServer3D.sphere_shape_create()
-	PhysicsServer3D.shape_set_data(sphere_rid, 2.0)
+	PhysicsServer3D.shape_set_data(sphere_rid, scene_radius)
 	
 	var params: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
 	params.shape_rid = sphere_rid

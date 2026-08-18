@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://b553p5occ6vcb" path="res://gameplay/goal.tscn" id="7_cg8v6"]
 [ext_resource type="MeshLibrary" uid="uid://2us4pbcnl4dd" path="res://levels/tiles.tres" id="7_rlskx"]
 [ext_resource type="PackedScene" uid="uid://dl4gfdqwe7ung" path="res://gameplay/spawner.tscn" id="8_j0sdw"]
+[ext_resource type="PackedScene" uid="uid://bm1tlcpdsmnvq" path="res://car/car.tscn" id="8_jy02f"]
+[ext_resource type="PackedScene" uid="uid://cmajkgok212pa" path="res://enemies/gun_enemy.tscn" id="10_5dxk1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8uh7m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -43,9 +45,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5837517, 2, 3.7270408)
 
 [node name="Node3D" type="Node3D" parent="." unique_id=44069373]
 
-[node name="Player" parent="." unique_id=1743865470 instance=ExtResource("5_e3hfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.98819, 1.2728739, -25.28046)
-
 [node name="Enemy" parent="." unique_id=456266402 instance=ExtResource("6_pl2qr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7952096, 0.49999976, 0.39298773)
 
@@ -62,3 +61,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.534357, 0.1807785, -9.6027
 [node name="Spawner" parent="." unique_id=1948868527 instance=ExtResource("8_j0sdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.421207, -1.9073486e-06, -25.873257)
 rate = 10.0
+
+[node name="Car" parent="." unique_id=308352939 instance=ExtResource("8_jy02f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.064516, 0.088, -2.029356)
+
+[node name="Player" parent="." unique_id=1743865470 instance=ExtResource("5_e3hfu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.208334, 0.6715024, 0.27156544)
+
+[node name="Enemy2" parent="." unique_id=1209173528 instance=ExtResource("10_5dxk1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4930105, 0.8833804, -6.6680756)
+
+[node name="Enemy3" parent="." unique_id=93106538 instance=ExtResource("10_5dxk1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.670067, 0.8833804, -5.2448416)
+
+[node name="Enemy4" parent="." unique_id=716705121 instance=ExtResource("10_5dxk1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6357784, 0.8833804, -2.502585)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=586081647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8399171, -8.860291)
+use_collision = true
+size = Vector3(1, 3.8981934, 7.2246094)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D" unique_id=1764306689]
+operation = 2
+size = Vector3(2.0603027, 1.7744141, 1.9267578)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGBox3D" unique_id=1567110929]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -1.4621608, 0.88786185, -1.0564833)
+operation = 2
+radius = 0.9980469
+height = 4.623047

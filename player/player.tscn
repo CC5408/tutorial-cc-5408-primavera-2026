@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmn204mhbvh22" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://coetuunqittxg" path="res://assets/cat.glb" id="2_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://c5da07iughyim" path="res://weapons/bullet.tscn" id="2_hg6s5"]
 [ext_resource type="AnimationLibrary" uid="uid://clwcd22kffuvq" path="res://assets/cat_animations.glb" id="3_yw30f"]
 [ext_resource type="Script" uid="uid://b66cs470qfon0" path="res://components/hitbox_component.gd" id="4_g6k8r"]
 [ext_resource type="Script" uid="uid://dug778ifn1s4c" path="res://components/hurtbox_component.gd" id="4_yw30f"]
@@ -18,11 +19,18 @@ size = Vector3(0.546875, 0.4189453, 0.29101563)
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
 radius = 0.75
 
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+size = Vector3(0.16210938, 0.11035156, 0.3239746)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rgyib"]
+size = Vector3(0.16210938, 0.11035156, 0.043945313)
+
 [node name="Player" type="CharacterBody3D" unique_id=1743865470]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_oul6g")
 camera_pitch_min = -10.0
+bullet_scene = ExtResource("2_hg6s5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031798827]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.29197133, 0.018620014)
@@ -32,6 +40,26 @@ shape = SubResource("SphereShape3D_g4v7s")
 
 [node name="cat" parent="Model" unique_id=233149439 instance=ExtResource("2_g1dw6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="FABRIK3D" type="FABRIK3D" parent="Model/cat/Skeleton3D" parent_id_path=PackedInt32Array(233149439, 567614488) index="1" unique_id=2105394182]
+setting_count = 1
+settings/0/target_node = NodePath("../../../../GunMarker")
+settings/0/root_bone_name = "tail_1"
+settings/0/root_bone = 25
+settings/0/end_bone_name = "tail_4_leaf"
+settings/0/end_bone = 29
+settings/0/extend_end_bone = false
+settings/0/joint_count = 5
+settings/0/joints/0/rotation_axis = 3
+settings/0/joints/0/limitation = null
+settings/0/joints/1/rotation_axis = 3
+settings/0/joints/1/limitation = null
+settings/0/joints/2/rotation_axis = 3
+settings/0/joints/2/limitation = null
+settings/0/joints/3/rotation_axis = 3
+settings/0/joints/3/limitation = null
+settings/0/joints/4/rotation_axis = 3
+settings/0/joints/4/limitation = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model/cat" unique_id=857112140]
 libraries/cat_animations = ExtResource("3_yw30f")
@@ -47,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3346737, -0.7276016)
 shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1187830177]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2301409, -0.7982006)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23, 0)
 spring_length = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1896818561]
@@ -89,3 +117,19 @@ show_percentage = false
 
 [node name="JumpPlayer" type="AudioStreamPlayer3D" parent="." unique_id=625906409]
 stream = ExtResource("8_rgyib")
+
+[node name="GunMarker" type="Marker3D" parent="." unique_id=787994381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17079139, 0.9366242, 0.15292458)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GunMarker" unique_id=1967754370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0045648813, 0.10066491, -0.045535043)
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="BulletSpawnMarker" type="Marker3D" parent="GunMarker/MeshInstance3D" unique_id=1323142453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16648975)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="GunMarker" unique_id=1777606751]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0045648813, 0.03809607, 0.014452532)
+mesh = SubResource("BoxMesh_rgyib")
+
+[editable path="Model/cat"]
