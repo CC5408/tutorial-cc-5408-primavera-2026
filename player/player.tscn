@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dboy51yparsgi"]
 
 [ext_resource type="Script" uid="uid://cmn204mhbvh22" path="res://player/player.gd" id="1_oul6g"]
-[ext_resource type="PackedScene" uid="uid://coetuunqittxg" path="res://assets/cat.glb" id="2_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://coetuunqittxg" path="res://assets/cat/cat.glb" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://c5da07iughyim" path="res://weapons/bullet.tscn" id="2_hg6s5"]
-[ext_resource type="AnimationLibrary" uid="uid://clwcd22kffuvq" path="res://assets/cat_animations.glb" id="3_yw30f"]
+[ext_resource type="AnimationLibrary" uid="uid://clwcd22kffuvq" path="res://assets/cat/cat_animations.glb" id="3_yw30f"]
 [ext_resource type="Script" uid="uid://b66cs470qfon0" path="res://components/hitbox_component.gd" id="4_g6k8r"]
 [ext_resource type="Script" uid="uid://dug778ifn1s4c" path="res://components/hurtbox_component.gd" id="4_yw30f"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://50iw4cbdxg5f" path="res://player/movement.tres" id="5_8t03j"]
@@ -17,9 +17,6 @@ size = Vector3(0.73535156, 0.58776855, 0.7595215)
 [sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
 radius = 0.67109174
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8t03j"]
-animation = &"walk "
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2ieo8"]
 animation = &"bite"
 
@@ -28,17 +25,15 @@ filter_enabled = true
 filters = ["Skeleton3D:head", "Skeleton3D:root.005"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ghvnl"]
-graph_offset = Vector2(-294.19272, -47.214985)
+graph_offset = Vector2(-486.22394, 44.063843)
 nodes/output/position = Vector2(208, 176)
 nodes/movement/node = ExtResource("5_8t03j")
-nodes/movement/position = Vector2(-640, -16)
+nodes/movement/position = Vector2(-528, 160)
 nodes/bite/node = SubResource("AnimationNodeOneShot_ebec5")
 nodes/bite/position = Vector2(-112, 240)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_2ieo8")
 nodes/Animation/position = Vector2(-410.2814, 560.94775)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_8t03j")
-"nodes/Animation 2/position" = Vector2(-480, 256)
-node_connections = [&"output", 0, &"bite", &"bite", 0, &"Animation 2", &"bite", 1, &"Animation"]
+node_connections = [&"output", 0, &"bite", &"bite", 0, &"movement", &"bite", 1, &"Animation"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
 radius = 0.75
@@ -57,7 +52,7 @@ camera_pitch_min = -10.0
 bullet_scene = ExtResource("2_hg6s5")
 
 [node name="BiteHitbox" type="Area3D" parent="." unique_id=1958232733]
-transform = Transform3D(-1, 2.3325928e-08, -4.7890717e-07, 4.768373e-07, 0.3164395, -0.94847757, 1.5099585e-07, -0.9486207, -0.31639183, 2.0711198e-08, 0.32823986, -1.0038221)
+transform = Transform3D(-0.99999905, 2.3325097e-08, -4.789631e-07, 4.7683682e-07, 0.3164282, -0.9485883, 1.509957e-07, -0.9485868, -0.31642875, 2.0711198e-08, 0.32823986, -1.0038221)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("4_g6k8r")
@@ -130,7 +125,6 @@ update_scale = false
 libraries/ = ExtResource("3_yw30f")
 
 [node name="AnimationTree" type="AnimationTree" parent="Model/cat" unique_id=1341212814]
-active = false
 tree_root = SubResource("AnimationNodeBlendTree_ghvnl")
 anim_player = NodePath("../AnimationPlayer")
 parameters/bite/active = false

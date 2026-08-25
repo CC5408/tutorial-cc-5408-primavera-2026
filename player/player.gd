@@ -93,16 +93,16 @@ func _physics_process(delta: float) -> void:
 	
 	#Debug.log(playback.get_current_node())
 	
-	#if is_on_floor():
-		#if velocity.length_squared() < 1:
-			#playback.travel("idle")
-		#else:
-			#playback.travel("walk")
-	#else:
-		#if velocity.y > 0:
-			#playback.travel("jump")
-		#else:
-			#playback.travel("fall")
+	if is_on_floor():
+		if velocity.length_squared() < 1:
+			playback.travel("idle")
+		else:
+			playback.travel("walk")
+	else:
+		if velocity.y > 0:
+			playback.travel("jump")
+		else:
+			playback.travel("fall")
 
 func set_enabled(value: bool) -> void:
 	enabled = value
