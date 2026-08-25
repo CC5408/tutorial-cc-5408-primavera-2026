@@ -24,8 +24,11 @@ var enabled: bool = true:
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var bullet_spawn_marker: Marker3D = $GunMarker/MeshInstance3D/BulletSpawnMarker
 @onready var gun_marker: Marker3D = $GunMarker
-
-
+@onready var animation_tree: AnimationTree = $Model/cat/AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/movement/playback"]
+@onready var bite_collision_shape: CollisionShape3D = $BiteHitbox/BiteCollisionShape
+	
+	
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -33,12 +36,13 @@ func _ready() -> void:
 	health_bar.max_value = health_component.max_health
 	health_component.health_changed.connect(func(value: float) -> void: health_bar.value = value)
 	health_component.died.connect(_on_died)
+	animation_tree.active = true
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("fire"):
 		_fire()
 	if event.is_action_pressed("flick"):
-		animation_player.play("cat_animations/flick")
+		animation_player.play("flick")
 
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_motion: InputEventMouseMotion = event as InputEventMouseMotion
@@ -64,6 +68,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_speed
 		jump_player.play()
 		Debug.log("jump")
+		
+	if Input.is_action_just_pressed("bite") and not animation_tree["parameters/bite/active"]:
+		bite()
 	
 	var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	#var direction: Vector3 = transform.basis * Vector3(move_input.x, 0, move_input.y)
@@ -82,6 +89,20 @@ func _physics_process(delta: float) -> void:
 	
 	model.rotation.y = lerp_angle(model.rotation.y, spring_arm_3d.rotation.y, 0.1)
 
+	# animation
+	
+	#Debug.log(playback.get_current_node())
+	
+	#if is_on_floor():
+		#if velocity.length_squared() < 1:
+			#playback.travel("idle")
+		#else:
+			#playback.travel("walk")
+	#else:
+		#if velocity.y > 0:
+			#playback.travel("jump")
+		#else:
+			#playback.travel("fall")
 
 func set_enabled(value: bool) -> void:
 	enabled = value
@@ -103,3 +124,11 @@ func _fire() -> void:
 	get_parent().add_child(bullet_inst)
 	bullet_inst.global_position = bullet_spawn_marker.global_position
 	bullet_inst.global_rotation = bullet_spawn_marker.global_rotation
+
+
+func bite() -> void:
+	animation_tree["parameters/bite/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	await get_tree().create_timer(0.1).timeout
+	bite_collision_shape.set_deferred("disabled", false)
+	await get_tree().create_timer(0.1).timeout
+	bite_collision_shape.set_deferred("disabled", true)

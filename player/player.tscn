@@ -6,15 +6,39 @@
 [ext_resource type="AnimationLibrary" uid="uid://clwcd22kffuvq" path="res://assets/cat_animations.glb" id="3_yw30f"]
 [ext_resource type="Script" uid="uid://b66cs470qfon0" path="res://components/hitbox_component.gd" id="4_g6k8r"]
 [ext_resource type="Script" uid="uid://dug778ifn1s4c" path="res://components/hurtbox_component.gd" id="4_yw30f"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://50iw4cbdxg5f" path="res://player/movement.tres" id="5_8t03j"]
 [ext_resource type="Script" uid="uid://peokparacol4" path="res://components/health_component.gd" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://bp4nb5csxeh4i" path="res://ui/pause_menu.tscn" id="7_boad6"]
 [ext_resource type="AudioStream" uid="uid://dt5iw5ue3fqwa" path="res://assets/audio/jump.wav" id="8_rgyib"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(0.73535156, 0.58776855, 0.7595215)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
 radius = 0.67109174
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
-size = Vector3(0.546875, 0.4189453, 0.29101563)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8t03j"]
+animation = &"walk "
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2ieo8"]
+animation = &"bite"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ebec5"]
+filter_enabled = true
+filters = ["Skeleton3D:head", "Skeleton3D:root.005"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ghvnl"]
+graph_offset = Vector2(-294.19272, -47.214985)
+nodes/output/position = Vector2(208, 176)
+nodes/movement/node = ExtResource("5_8t03j")
+nodes/movement/position = Vector2(-640, -16)
+nodes/bite/node = SubResource("AnimationNodeOneShot_ebec5")
+nodes/bite/position = Vector2(-112, 240)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_2ieo8")
+nodes/Animation/position = Vector2(-410.2814, 560.94775)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_8t03j")
+"nodes/Animation 2/position" = Vector2(-480, 256)
+node_connections = [&"output", 0, &"bite", &"bite", 0, &"Animation 2", &"bite", 1, &"Animation"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
 radius = 0.75
@@ -32,8 +56,21 @@ script = ExtResource("1_oul6g")
 camera_pitch_min = -10.0
 bullet_scene = ExtResource("2_hg6s5")
 
+[node name="BiteHitbox" type="Area3D" parent="." unique_id=1958232733]
+transform = Transform3D(-1, 2.3325928e-08, -4.7890717e-07, 4.768373e-07, 0.3164395, -0.94847757, 1.5099585e-07, -0.9486207, -0.31639183, 2.0711198e-08, 0.32823986, -1.0038221)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_g6k8r")
+damage = 100.0
+metadata/_custom_type_script = "uid://b66cs470qfon0"
+
+[node name="BiteCollisionShape" type="CollisionShape3D" parent="BiteHitbox" unique_id=626727885]
+transform = Transform3D(1, 7.4505744e-09, 2.0954787e-09, -7.4505753e-09, 1, 4.4703904e-07, -2.0954753e-09, -4.4703904e-07, 1, -2.7939677e-09, -0.103575826, -0.25159758)
+shape = SubResource("BoxShape3D_yf5fn")
+debug_color = Color(0.6313726, 1, 1, 1)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031798827]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.29197133, 0.018620014)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.071054816, 0.018620014)
 shape = SubResource("SphereShape3D_g4v7s")
 
 [node name="Model" type="Node3D" parent="." unique_id=835199131]
@@ -41,13 +78,31 @@ shape = SubResource("SphereShape3D_g4v7s")
 [node name="cat" parent="Model" unique_id=233149439 instance=ExtResource("2_g1dw6")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="FABRIK3D" type="FABRIK3D" parent="Model/cat/Skeleton3D" parent_id_path=PackedInt32Array(233149439, 567614488) index="1" unique_id=2105394182]
+[node name="Skeleton3D" parent="Model/cat" index="0" unique_id=780489376]
+bones/0/position = Vector3(1.1919624e-15, -0.3159388, -0.031593885)
+bones/4/rotation = Quaternion(-0.41648242, 0.1142495, 0.34746158, 0.83232206)
+bones/5/rotation = Quaternion(0.024760822, -0.0010389887, -0.048158485, 0.99853224)
+bones/6/rotation = Quaternion(-0.07212139, 0.017892066, -0.5552041, 0.82838804)
+bones/9/rotation = Quaternion(0.48879543, 0.09271675, 0.2350888, 0.83499455)
+bones/10/rotation = Quaternion(-0.02476159, 0.001038973, -0.048159998, 0.9985322)
+bones/11/rotation = Quaternion(0.07212194, -0.017891726, -0.55520344, 0.8283886)
+bones/13/rotation = Quaternion(-0.33011645, -0.34982666, 0.1332702, 0.8665353)
+bones/14/rotation = Quaternion(0.295744, 0.35480246, -0.11939383, 0.87886053)
+bones/16/rotation = Quaternion(-0.003785625, 0.0019170564, 0.37890157, 0.92542726)
+bones/19/rotation = Quaternion(-0.0037856132, -0.0019170238, -0.37890154, 0.92542726)
+bones/24/rotation = Quaternion(0.04062352, 0.001716983, -6.980762e-05, 0.99917305)
+bones/25/rotation = Quaternion(0.014871502, -9.0743174e-13, -7.2116445e-11, 0.99988943)
+bones/26/rotation = Quaternion(-0.013088027, -7.4142016e-13, -2.8485072e-11, 0.99991435)
+bones/27/rotation = Quaternion(-0.013251245, -1.8414156e-13, -1.38804905e-11, 0.9999122)
+bones/35/rotation = Quaternion(-0.38734156, 0.45104733, -0.20930748, 0.7763461)
+
+[node name="FABRIK3D" type="FABRIK3D" parent="Model/cat/Skeleton3D" index="1" unique_id=2105394182]
 setting_count = 1
 settings/0/target_node = NodePath("../../../../GunMarker")
 settings/0/root_bone_name = "tail_1"
-settings/0/root_bone = 25
+settings/0/root_bone = 24
 settings/0/end_bone_name = "tail_4_leaf"
-settings/0/end_bone = 29
+settings/0/end_bone = 28
 settings/0/extend_end_bone = false
 settings/0/joint_count = 5
 settings/0/joints/0/rotation_axis = 3
@@ -61,18 +116,26 @@ settings/0/joints/3/limitation = null
 settings/0/joints/4/rotation_axis = 3
 settings/0/joints/4/limitation = null
 
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Model/cat/Skeleton3D" index="2" unique_id=636090337]
+transform = Transform3D(0.9999998, 5.9604645e-08, 5.066395e-07, 4.7683716e-07, 0.31643695, -0.9486133, -2.3841858e-07, 0.948613, 0.3164371, 2.539065e-08, 0.21706434, 0.5273435)
+bone_name = "head"
+bone_idx = 14
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/cat/Skeleton3D/BoneAttachment3D" unique_id=669567153]
+transform = Transform3D(1, 0, 2.842171e-14, 0, 1, 0, -1.7763568e-14, 0, 1, -1.0340095e-08, 0.48717433, 0.04531291)
+remote_path = NodePath("../../../../../BiteHitbox")
+update_scale = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model/cat" unique_id=857112140]
-libraries/cat_animations = ExtResource("3_yw30f")
+libraries/ = ExtResource("3_yw30f")
 
-[node name="HitboxComponent" type="Area3D" parent="Model" unique_id=216659417]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("4_g6k8r")
-metadata/_custom_type_script = "uid://b66cs470qfon0"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/HitboxComponent" unique_id=1515866258]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3346737, -0.7276016)
-shape = SubResource("BoxShape3D_g4v7s")
+[node name="AnimationTree" type="AnimationTree" parent="Model/cat" unique_id=1341212814]
+active = false
+tree_root = SubResource("AnimationNodeBlendTree_ghvnl")
+anim_player = NodePath("../AnimationPlayer")
+parameters/bite/active = false
+parameters/bite/internal_active = false
+parameters/bite/request = 0
 
 [node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1187830177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23, 0)
